@@ -465,7 +465,7 @@ The end-to-end workflow from citizen report to dashboard update:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-team/aegis.git
+git clone https://github.com/Vgurubrahmam/AEGIS_Hackathon.git
 cd aegis
 ```
 
