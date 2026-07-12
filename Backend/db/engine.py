@@ -11,11 +11,18 @@ from config import get_settings
 
 settings = get_settings()
 
+# Dynamically rewrite PostgreSQL URL to use the asyncpg driver
+db_url = settings.database_url
+if db_url.startswith("postgres://"):
+    db_url = db_url.replace("postgres://", "postgresql+asyncpg://", 1)
+elif db_url.startswith("postgresql://"):
+    db_url = db_url.replace("postgresql://", "postgresql+asyncpg://", 1)
+
 engine = create_async_engine(
-    settings.database_url,
+    db_url,
     echo=False,
     # SQLite-specific: allow concurrent reads
-    connect_args={"check_same_thread": False} if "sqlite" in settings.database_url else {},
+    connect_args={"check_same_thread": False} if "sqlite" in db_url else {},
 )
 
 AsyncSessionLocal = async_sessionmaker(

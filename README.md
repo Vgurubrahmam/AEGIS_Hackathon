@@ -33,13 +33,6 @@
 
 During natural disasters — floods, earthquakes, cyclones — emergency teams are overwhelmed by thousands of unstructured citizen reports arriving via SMS, phone calls, and social media. Human operators cannot process, verify, prioritize, and dispatch resources fast enough. Lives are lost not because resources are unavailable, but because coordination fails under pressure.
 
-### Why Is This Problem Important?
-
-- **India alone** experienced 7,000+ flood-related deaths between 2018–2023.
-- During the 2020 Hyderabad floods, emergency call centers received **50,000+ distress calls** in 48 hours — far exceeding human processing capacity.
-- Manual triage introduces **30–60 minute delays** between a citizen's report and resource dispatch.
-- Duplicate and unverified reports waste limited emergency resources.
-
 ### Who Are the Users?
 
 | User               | Role                                                      |
@@ -157,8 +150,6 @@ AEGIS follows a **three-tier architecture**: SMS ingestion layer, multi-agent pr
 │  └──────────────┘   └────────────────┘   └──────────────────────────┘      │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
-
-> **📌 Placeholder**: Insert architecture diagram image here.
 
 ### Component Connections
 
@@ -660,52 +651,6 @@ AEGIS/
 
 **Solution**: Inserted WebSocket broadcast calls after every pipeline step (incident creation, each agent completion, each incident status change). The dashboard receives 12+ events per incident, creating a real-time "watch it happen" experience.
 
----
-
-## Demo Flow
-
-**Duration**: 3–5 minutes
-
-### Step 1: Show the Dashboard (30s)
-
-- Open [http://localhost:5173](http://localhost:5173)
-- Point out the three-panel layout: sidebar (simulate + resources), map, agent trace
-- Highlight WebSocket connection status: "Live" indicator
-
-### Step 2: Explain the Architecture (45s)
-
-- Show the architecture diagram
-- Explain: "Six AI agents process each SMS in sequence — triage, verify, locate, match, dispatch, summarize"
-- Mention: "Groq API runs Llama models at ultra-low latency"
-
-### Step 3: Simulate a Critical Emergency (60s)
-
-- Use the preset button: **🔴 Critical Rescue**
-- Watch the pipeline execute in real-time on the Agent Trace panel
-- Point out: severity classification, confidence score, landmark resolution, resource matching
-- Show the map marker appear at the incident location
-- Check phone for dispatch SMS (if Twilio configured)
-
-### Step 4: Simulate a Low-Confidence Report (45s)
-
-- Type a vague message: "need help things are bad"
-- Show the verification agent flagging it with low confidence
-- Demonstrate the decision gate: incident marked `needs_review` instead of dispatched
-- Explain: "This prevents wasting resources on unverified reports"
-
-### Step 5: Show the SitRep (30s)
-
-- Switch to the SitRep tab
-- Show the AI-generated situation report with incident counts, critical items, recommendations
-- Explain: "This regenerates after every new incident — live operational awareness"
-
-### Step 6: Show API Docs (15s)
-
-- Open [http://localhost:8000/docs](http://localhost:8000/docs)
-- Show the 13 REST endpoints
-- Mention: "Every data point is accessible via clean REST API"
-
----
 
 ## Screenshots
 
@@ -724,20 +669,3 @@ AEGIS/
 ### Resource Allocation
 
 ![AEGIS Resource Management Feed](./screenshots/dashboard.png)
-
-
----
-
-## Contributors
-
-| Name | Role | Responsibilities |
-| ---- | ---- | ---------------- |
-|      |      |                  |
-|      |      |                  |
-|      |      |                  |
-
----
-
-<p align="center">
-  <strong>AEGIS</strong> — Built for rapid emergency response. Powered by AI agents.
-</p>
