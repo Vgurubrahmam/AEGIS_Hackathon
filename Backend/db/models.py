@@ -18,8 +18,8 @@ def generate_uuid() -> str:
 
 
 def utc_now() -> datetime:
-    """Current UTC timestamp."""
-    return datetime.now(timezone.utc)
+    """Current UTC timestamp (offset-naive for PostgreSQL compatibility)."""
+    return datetime.now(timezone.utc).replace(tzinfo=None)
 
 
 # ── Incidents ────────────────────────────────────────────────────────────────
