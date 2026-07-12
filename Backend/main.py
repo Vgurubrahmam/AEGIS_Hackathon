@@ -57,7 +57,35 @@ async def lifespan(app: FastAPI):
     vector_store.initialize()
     if historical:
         vector_store.seed_incidents(historical)
-    logger.info("✅ ChromaDB initialized and seeded.")
+    else:
+        # Resilient backup: If the persistent ChromaDB folder was wiped out on an ephemeral cloud instance,
+        # but the PostgreSQL database is persistent and already has resolved incidents, re-index them into ChromaDB.
+        if vector_store._collection.count() == 0:
+            logger.info("ChromaDB collection is empty on startup. Re-indexing resolved incidents from database...")
+            async with AsyncSessionLocal() as session:
+                from sqlalchemy import select
+                from db.models import Incident
+                
+                stmt = select(Incident).where(Incident.status == "resolved")
+                res = await session.execute(stmt)
+                resolved_incidents = res.scalars().all()
+                if resolved_incidents:
+                    to_seed = [
+                        {
+                            "id": inc.id,
+                            "text": inc.raw_text,
+                            "severity": inc.severity,
+                            "need_type": inc.need_type,
+                            "landmark": inc.landmark_name,
+                        }
+                        for inc in resolved_incidents
+                    ]
+                    vector_store.seed_incidents(to_seed)
+                    logger.info(f"✅ Successfully re-indexed {len(to_seed)} incidents into ChromaDB.")
+                else:
+                    logger.info("No resolved incidents found in DB to re-index.")
+
+    logger.info("✅ ChromaDB initialized and ready.")
 
     # Log config status
     logger.info(f"   Groq API:      {'✅ configured' if settings.groq_configured else '❌ NOT configured'}")
