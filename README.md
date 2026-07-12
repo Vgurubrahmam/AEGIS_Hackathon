@@ -21,9 +21,7 @@
 - [Folder Structure](#folder-structure)
 - [Future Enhancements](#future-enhancements)
 - [Challenges Faced](#challenges-faced)
-- [Demo Flow](#demo-flow)
 - [Screenshots](#screenshots)
-- [Contributors](#contributors)
 
 ---
 
