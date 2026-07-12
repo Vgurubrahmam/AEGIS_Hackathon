@@ -1,0 +1,56 @@
+# ==========================================
+# AEGIS — Root Git Ignore
+# ==========================================
+
+# Sensitive Files (API Keys & Credentials)
+.env
+*.env
+Backend/.env
+Frontend/.env
+.env*.local
+
+# Database Artifacts (SQLite & Vector DB)
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+Backend/aegis.db
+Backend/chroma_data/
+chroma_data/
+
+# Python / Backend Build & Caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+ENV/
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+
+# Node / Frontend Build & Dependencies
+node_modules/
+Frontend/node_modules/
+dist/
+Frontend/dist/
+dist-ssr/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# System & Editor Garbage
+.vscode/
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
