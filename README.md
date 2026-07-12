@@ -2,6 +2,10 @@
 
 > AI-powered disaster response coordination platform that transforms citizen SMS reports into actionable emergency dispatches in seconds.
 
+### 🔗 Live Deployment Links
+* **Live Dashboard (Vercel)**: [aegis-hackathon-seven.vercel.app](https://aegis-hackathon-seven.vercel.app/)
+* **Live API Explorer (Render)**: [aegis-hackathon-86b2.onrender.com/docs](https://aegis-hackathon-86b2.onrender.com/docs)
+
 ---
 
 ## Table of Contents
