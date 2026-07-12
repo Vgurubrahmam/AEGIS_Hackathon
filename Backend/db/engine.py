@@ -18,11 +18,20 @@ if db_url.startswith("postgres://"):
 elif db_url.startswith("postgresql://"):
     db_url = db_url.replace("postgresql://", "postgresql+asyncpg://", 1)
 
+# Configure connection arguments based on database type
+if "sqlite" in db_url:
+    connect_args = {"check_same_thread": False}
+else:
+    # Disable prepared statement caching for Supabase/PgBouncer connection pooler compatibility
+    connect_args = {
+        "statement_cache_size": 0,
+        "prepared_statement_cache_size": 0,
+    }
+
 engine = create_async_engine(
     db_url,
     echo=False,
-    # SQLite-specific: allow concurrent reads
-    connect_args={"check_same_thread": False} if "sqlite" in db_url else {},
+    connect_args=connect_args,
 )
 
 AsyncSessionLocal = async_sessionmaker(
